@@ -1,6 +1,10 @@
+import { useContext } from "react";
+import { CartContext } from "components/contextAPI/CartContext";
+
 import styles from "./CartCard.module.css";
 
 const CartCard = ({ cart }) => {
+  const { removeProductFromCart } = useContext(CartContext);
   return (
     <div className={styles.cartCard}>
       <div className={styles.titleWrapper}>
@@ -18,7 +22,12 @@ const CartCard = ({ cart }) => {
         <img src={cart.image_url} alt={cart.title} />
       </div>
 
-      <button className={styles.removeCard}>close</button>
+      <button
+        className={styles.removeCard}
+        onClick={() => removeProductFromCart(cart.id)}
+      >
+        x
+      </button>
     </div>
   );
 };
