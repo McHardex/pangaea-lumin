@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import AddToCart from "components/AddToCart";
+import Button from "components/Button";
 import styles from "./ProductCard.module.css";
 import { CartContext } from "components/contextAPI/CartContext";
 
@@ -14,7 +14,10 @@ const ProductCard = ({ product }) => {
         <p>{`From $${product.price}`}</p>
       </div>
 
-      <AddToCart handleClick={() => addProductToCart(product)} />
+      <Button
+        handleClick={() => addProductToCart(product)}
+        btnText="Add to Cart"
+      />
     </div>
   );
 };

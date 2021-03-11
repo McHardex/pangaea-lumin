@@ -1,5 +1,6 @@
-.addToCart {
-  padding: 5px 30px;
+.primary,
+.secondary {
+  padding: 10px 30px;
   text-align: center;
   background-color: #4b5548;
   color: #ffffff;
@@ -8,7 +9,13 @@
   font-size: 12px;
 }
 
-.addToCart:hover {
+.secondary {
+  border: 1px solid #4b5548;
+  background: transparent;
+  color: #4b5548;
+}
+
+.primary:hover {
   opacity: 0.9;
   transition: opacity 0.3s ease-in-out;
 }
