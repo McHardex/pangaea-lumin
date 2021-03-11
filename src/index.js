@@ -5,11 +5,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider } from "@apollo/client";
 import apolloClient from "./apolloClient";
+import CartContextProvider from "components/contextAPI/CartContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
-      <App />
+      <CartContextProvider>
+        <App />
+      </CartContextProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

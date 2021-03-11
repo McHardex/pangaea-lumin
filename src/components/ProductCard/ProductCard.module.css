@@ -1,0 +1,20 @@
+.productCard {
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.productCard > img {
+  height: 100px;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.productCard > .textWrapper {
+  margin: 40px 0 15px 0;
+}
+
+.productCard > .textWrapper > p {
+  margin: 0;
+}
