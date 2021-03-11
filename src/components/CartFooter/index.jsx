@@ -3,7 +3,7 @@ import styles from "./CartFooter.module.css";
 
 const CartFooter = () => {
   return (
-    <>
+    <div>
       <hr />
       <div className={styles.cartTotal}>
         <label>Subtotal</label>
@@ -19,7 +19,7 @@ const CartFooter = () => {
       <div className={styles.btnMargin}>
         <Button btnText="PROCEED TO CHECKOUT" width="100%" />
       </div>
-    </>
+    </div>
   );
 };
 

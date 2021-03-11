@@ -43,7 +43,7 @@
 
 .productImageWrapper > img {
   width: 50px;
-  height: auto;
+  height: 100px;
   object-fit: contain;
   object-position: center;
 }
@@ -51,5 +51,6 @@
 .removeCard {
   position: absolute;
   top: 20px;
+  cursor: pointer;
   right: 20px;
 }

@@ -8,17 +8,17 @@ const initialState = {
   cart: [],
   cartSubTotal: 0,
   checkout: false,
+  showCart: false,
 };
 
 const CartContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(CartReducer, initialState);
-  // console.log(state, "state");
 
   const addProductToCart = (product) =>
     dispatch({ type: types.ADD_PRODUCT_TO_CART, product });
 
-  const removeProductFromCart = (product) =>
-    dispatch({ type: types.REMOVE_PRODUCT_FROM_CART, product });
+  const removeProductFromCart = (productId) =>
+    dispatch({ type: types.REMOVE_PRODUCT_FROM_CART, productId });
 
   const increaseCartItem = (productId) =>
     dispatch({ type: types.INCREASE_CART_ITEM, productId });
@@ -26,11 +26,14 @@ const CartContextProvider = ({ children }) => {
   const decreaseCartItem = (productId) =>
     dispatch({ type: types.DECREASE_CART_ITEM, productId });
 
+  const hideCart = () => dispatch({ type: types.HIDE_CART });
+
   const contextHandlers = {
     addProductToCart,
     removeProductFromCart,
     increaseCartItem,
     decreaseCartItem,
+    hideCart,
     ...state,
   };
 

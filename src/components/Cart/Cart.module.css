@@ -1,7 +1,33 @@
 .cartWrapper {
   margin: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .cartCardWrapper {
   margin: 10px 0;
+}
+
+.cartBody {
+  overflow-y: auto;
+  height: 72%;
+  margin-bottom: 2%;
+}
+
+.cartHeader {
+  display: flex;
+  align-items: center;
+}
+
+.cartHeader > button {
+  right: left;
+  cursor: pointer;
+}
+
+.cartHeader > h3 {
+  text-align: center;
+  width: 100%;
 }

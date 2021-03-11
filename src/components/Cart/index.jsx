@@ -2,20 +2,34 @@ import { useContext } from "react";
 import CartCard from "components/CartCard";
 import CartFooter from "components/CartFooter";
 import { CartContext } from "components/contextAPI/CartContext";
+import Modal from "components/Modal";
+
 import styles from "./Cart.module.css";
 
 const Cart = () => {
-  const { cart } = useContext(CartContext);
+  const { cart, hideCart } = useContext(CartContext);
   return (
-    <div className={styles.cartWrapper}>
-      {cart.length > 0 &&
-        cart.map((cart) => (
-          <div className={styles.cartCardWrapper}>
-            <CartCard cart={cart} />
+    <>
+      <Modal>
+        <div className={styles.cartWrapper}>
+          <div className={styles.cartHeader}>
+            <button onClick={() => hideCart()}>+</button>
+            <h3>Your Cart</h3>
           </div>
-        ))}
-      <CartFooter />
-    </div>
+          <div className={styles.cartBody}>
+            {cart.length > 0 &&
+              cart.map((cart) => (
+                <div className={styles.cartCardWrapper}>
+                  <CartCard cart={cart} />
+                </div>
+              ))}
+          </div>
+          <div className={styles.cartFooterWrapper}>
+            <CartFooter />
+          </div>
+        </div>
+      </Modal>
+    </>
   );
 };
 
