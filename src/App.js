@@ -1,7 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import GET_PRODUCTS from "graphql/queries/products";
+import GET_CURRENCIES from "graphql/queries/currencies";
+import { useLazyQuery } from "@apollo/client";
 
-function App() {
+const App = () => {
+  const [
+    getProducts,
+    { loading: loadingProducts, data: product },
+  ] = useLazyQuery(GET_PRODUCTS);
+  const [
+    getCurrencies,
+    { loading: loadingCurrencies, data: currency },
+  ] = useLazyQuery(GET_CURRENCIES);
+
+  useEffect(() => {
+    getProducts({ variables: { currency: "USD" } });
+    getCurrencies();
+  }, []);
+
+  console.log(loadingProducts, "loadingProducts");
+  console.log(loadingCurrencies, "loadingCurrencies");
+  console.log(product, "product");
+  console.log(currency, "currency");
+
   return (
     <div className="App">
       <header className="App-header">
@@ -20,6 +44,6 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
 export default App;
