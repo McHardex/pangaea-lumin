@@ -6,6 +6,9 @@ import { useLazyQuery } from "@apollo/client";
 
 import "./App.css";
 import Product from "pages/Product";
+import Button from "components/Button";
+import CartFooter from "components/CartFooter";
+import Cart from "components/Cart";
 
 const App = () => {
   const [
@@ -31,6 +34,8 @@ const App = () => {
 
   return (
     <div className="App">
+      <Cart />
+
       <Product products={typeof product !== "undefined" && product.products} />
     </div>
   );

@@ -1,0 +1,55 @@
+.cartCard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100px;
+  background: #fff;
+  padding: 20px;
+  position: relative;
+}
+
+.titleWrapper,
+.titleWrapper > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.titleWrapper > div {
+  border: 1px solid #000;
+  min-width: 100px;
+  width: 100px;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 5px 0;
+}
+
+.titleWrapper > div > button {
+  outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.price {
+  display: flex;
+  align-items: flex-end;
+}
+
+.productImageWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.productImageWrapper > img {
+  width: 50px;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+.removeCard {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
