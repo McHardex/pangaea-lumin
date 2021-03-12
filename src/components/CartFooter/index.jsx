@@ -1,13 +1,13 @@
 import Button from "components/Button";
 import styles from "./CartFooter.module.css";
 
-const CartFooter = ({ total }) => {
+const CartFooter = ({ total, currency }) => {
   return (
     <div>
       <hr />
       <div className={styles.cartTotal}>
         <label>Subtotal</label>
-        <span>${total}</span>
+        <span>{currency === "USD" ? `$${total}` : `${total} ${currency}`}</span>
       </div>
       <div className={styles.btnMargin}>
         <Button
