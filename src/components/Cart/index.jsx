@@ -8,6 +8,7 @@ import Select from "react-select";
 import axios from "axios";
 
 import styles from "./Cart.module.css";
+import Loader from "components/Loader";
 
 const productQuery = `
     query product($currency: Currency) {
@@ -44,11 +45,21 @@ const Cart = () => {
     currency,
   } = useContext(CartContext);
 
+  const [updatingPrice, setUpdatingPrice] = useState(false);
   const [priceUpdateFailed, setPriceUpdateFailed] = useState(false);
 
   return (
     <>
       <Modal>
+        {updatingPrice && (
+          <Loader
+            size={40}
+            loading={updatingPrice}
+            loaderMessage="Updating cart prices..."
+            variant="secondary"
+            background="#f2f3f0"
+          />
+        )}
         <div className={styles.cartWrapper}>
           <div className={styles.cartHeader}>
             <button onClick={() => hideCart()}>+</button>
@@ -60,6 +71,7 @@ const Cart = () => {
             defaultInputValue={currency}
             defaultValue={currency}
             onChange={async (e) => {
+              setUpdatingPrice(true);
               const response = await fetchProducts(e.value);
               if (!response.data.errors) {
                 updateCartPrice(
@@ -67,8 +79,10 @@ const Cart = () => {
                 );
                 handleCurrencyChange(e.value);
                 setPriceUpdateFailed(false);
+                setUpdatingPrice(false);
               } else {
                 handleCurrencyChange("");
+                setUpdatingPrice(false);
                 setPriceUpdateFailed(true);
               }
             }}
