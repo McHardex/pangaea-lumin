@@ -17,6 +17,7 @@ const ProductCard = ({ product }) => {
       <Button
         handleClick={() => addProductToCart(product)}
         btnText="Add to Cart"
+        width="fit-content"
       />
     </div>
   );

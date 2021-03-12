@@ -7,6 +7,8 @@
   border: none;
   cursor: pointer;
   font-size: 12px;
+  outline: none;
+  margin: 0 auto;
 }
 
 .secondary {
@@ -18,4 +20,8 @@
 .primary:hover {
   opacity: 0.9;
   transition: opacity 0.3s ease-in-out;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }

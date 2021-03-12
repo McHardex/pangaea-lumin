@@ -1,7 +1,11 @@
 .productCard {
   text-align: center;
-  width: 50%;
+  width: 55%;
   margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .productCard > img {
@@ -17,4 +21,10 @@
 
 .productCard > .textWrapper > p {
   margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .productCard {
+    width: 60%;
+  }
 }

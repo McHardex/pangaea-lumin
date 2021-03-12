@@ -7,7 +7,7 @@ import Modal from "components/Modal";
 import styles from "./Cart.module.css";
 
 const Cart = () => {
-  const { cart, hideCart } = useContext(CartContext);
+  const { cart, hideCart, cartSubTotal } = useContext(CartContext);
   return (
     <>
       <Modal>
@@ -19,13 +19,13 @@ const Cart = () => {
           <div className={styles.cartBody}>
             {cart.length > 0 &&
               cart.map((cart) => (
-                <div className={styles.cartCardWrapper}>
+                <div className={styles.cartCardWrapper} key={cart.id}>
                   <CartCard cart={cart} />
                 </div>
               ))}
           </div>
           <div className={styles.cartFooterWrapper}>
-            <CartFooter />
+            <CartFooter total={cartSubTotal} />
           </div>
         </div>
       </Modal>
