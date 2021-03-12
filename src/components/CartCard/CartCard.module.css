@@ -51,7 +51,10 @@
 
 .removeCard {
   position: absolute;
-  top: 20px;
+  top: 10px;
+  background: none;
   cursor: pointer;
-  right: 20px;
+  right: 10px;
+  border: none;
+  outline: none;
 }

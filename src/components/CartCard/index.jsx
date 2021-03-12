@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { CartContext } from "components/contextAPI/CartContext";
+import { X, Minus, Plus } from "react-feather";
 
 import styles from "./CartCard.module.css";
 
@@ -15,10 +16,12 @@ const CartCard = ({ cart }) => {
       <div className={styles.titleWrapper}>
         <span>{cart.title}</span>
         <div>
-          <button onClick={() => decreaseCartItem(cart.id)}>-</button>
+          <button onClick={() => decreaseCartItem(cart.id)}>
+            <Minus size={10} />
+          </button>
           <span>{cart.quantity}</span>
           <button onClick={() => increaseCartItem(cart.id)} type="button">
-            +
+            <Plus size={10} />
           </button>
         </div>
       </div>
@@ -37,7 +40,7 @@ const CartCard = ({ cart }) => {
         className={styles.removeCard}
         onClick={() => removeProductFromCart(cart.id)}
       >
-        x
+        <X size={15} />
       </button>
     </div>
   );
