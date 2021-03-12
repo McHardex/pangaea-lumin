@@ -8,6 +8,7 @@ const CartCard = ({ cart }) => {
     removeProductFromCart,
     increaseCartItem,
     decreaseCartItem,
+    currency,
   } = useContext(CartContext);
   return (
     <div className={styles.cartCard}>
@@ -22,7 +23,11 @@ const CartCard = ({ cart }) => {
         </div>
       </div>
 
-      <div className={styles.price}>${cart.quantity * cart.price}</div>
+      <div className={styles.price}>
+        {currency === "USD"
+          ? `$${cart.quantity * cart.price}`
+          : `${cart.quantity * cart.price} ${currency}`}
+      </div>
 
       <div className={styles.productImageWrapper}>
         <img src={cart.image_url} alt={cart.title} />
