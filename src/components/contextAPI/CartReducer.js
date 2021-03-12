@@ -54,7 +54,6 @@ export const CartReducer = (state, action) => {
         currencies: modifiedCurrencyList,
       };
     case types.UPDATE_CART_PRICE:
-      console.log(action.products, "product reducer");
       const updatedCartWithPrice = updateCartItemsPrice(
         state.cart,
         action.products

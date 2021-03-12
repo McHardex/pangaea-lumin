@@ -8,6 +8,8 @@ import { CartContext } from "components/contextAPI/CartContext";
 import Product from "pages/Product";
 import Cart from "components/Cart";
 
+import Loader from "components/Loader";
+
 import "./App.css";
 
 const App = () => {
@@ -30,7 +32,14 @@ const App = () => {
     }
   }, [currencyData]);
 
-  if (loadingProducts) return <h1>Loading products</h1>;
+  if (loadingProducts)
+    return (
+      <Loader
+        loading={loadingProducts}
+        size={30}
+        loaderMessage="Stay calm! Loading all products."
+      />
+    );
   if (productsError) return <h1>Unable to load products</h1>;
 
   return (
