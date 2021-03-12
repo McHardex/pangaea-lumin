@@ -5,6 +5,7 @@
   background: #fff;
   padding: 20px;
   position: relative;
+  justify-items: center;
 }
 
 .titleWrapper,

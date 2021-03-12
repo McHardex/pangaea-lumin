@@ -20,11 +20,11 @@ const CartContextProvider = ({ children }) => {
   const removeProductFromCart = (productId) =>
     dispatch({ type: types.REMOVE_PRODUCT_FROM_CART, productId });
 
-  const increaseCartItem = (productId) =>
-    dispatch({ type: types.INCREASE_CART_ITEM, productId });
+  const increaseCartItem = (cartId) =>
+    dispatch({ type: types.INCREASE_CART_ITEM, cartId });
 
-  const decreaseCartItem = (productId) =>
-    dispatch({ type: types.DECREASE_CART_ITEM, productId });
+  const decreaseCartItem = (cartId) =>
+    dispatch({ type: types.DECREASE_CART_ITEM, cartId });
 
   const hideCart = () => dispatch({ type: types.HIDE_CART });
 

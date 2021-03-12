@@ -8,13 +8,11 @@ import apolloClient from "./apolloClient";
 import CartContextProvider from "components/contextAPI/CartContext";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ApolloProvider client={apolloClient}>
-      <CartContextProvider>
-        <App />
-      </CartContextProvider>
-    </ApolloProvider>
-  </React.StrictMode>,
+  <ApolloProvider client={apolloClient}>
+    <CartContextProvider>
+      <App />
+    </CartContextProvider>
+  </ApolloProvider>,
   document.getElementById("root")
 );
 

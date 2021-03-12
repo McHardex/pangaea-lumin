@@ -1,7 +1,7 @@
 import * as types from "./types";
 
-// const findProductIndexInCart = (cart, productId) =>
-//   cart.findIndex((cart) => cart.id === productId);
+const findProductIndexInCart = (cart, productId) =>
+  cart.findIndex((cart) => cart.id === productId);
 
 const checkProductExistsInCart = (cartItems, product) => {
   if (cartItems.length) {
@@ -16,11 +16,25 @@ const addProductToCart = (cartItems, product) => {
   const productIsInTheCart = checkProductExistsInCart(cartItems, product);
   if (productIsInTheCart) return;
   const productToAdd = { ...product, quantity: 1 };
-  return { cart: [productToAdd, ...cartItems] };
+  return [productToAdd, ...cartItems];
 };
 
 const removeProductFromCart = (cartItems, productId) =>
   cartItems.filter((cart) => cart.id !== productId);
+
+const decrementCartQuantity = (cart, cartId) => {
+  const cartIndex = findProductIndexInCart(cart, cartId);
+  const cartItem = cart[cartIndex];
+  if (cartItem.quantity === 1) {
+    const cartRemainder = removeProductFromCart(cart, cartId);
+    return cartRemainder;
+  }
+  cart[cartIndex].quantity--;
+  return cart;
+};
+
+const calculateCartSubTotal = (cart) =>
+  cart.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2);
 
 export const CartReducer = (state, action) => {
   switch (action.type) {
@@ -28,7 +42,8 @@ export const CartReducer = (state, action) => {
       const updatedCart = addProductToCart(state.cart, action.product);
       return {
         ...state,
-        ...updatedCart,
+        cart: updatedCart,
+        cartSubTotal: calculateCartSubTotal(updatedCart),
         showCart: true,
       };
     case types.REMOVE_PRODUCT_FROM_CART:
@@ -36,7 +51,21 @@ export const CartReducer = (state, action) => {
       return {
         ...state,
         cart: filteredCart,
-        showCart: filteredCart.length === 0 ? false : true,
+        cartSubTotal: calculateCartSubTotal(filteredCart),
+      };
+    case types.INCREASE_CART_ITEM:
+      state.cart[findProductIndexInCart(state.cart, action.cartId)].quantity++;
+      return {
+        ...state,
+        cart: [...state.cart],
+        cartSubTotal: calculateCartSubTotal([...state.cart]),
+      };
+    case types.DECREASE_CART_ITEM:
+      const cartItems = decrementCartQuantity(state.cart, action.cartId);
+      return {
+        ...state,
+        cart: cartItems,
+        cartSubTotal: calculateCartSubTotal(cartItems),
       };
     case types.HIDE_CART:
       return {
@@ -45,6 +74,6 @@ export const CartReducer = (state, action) => {
       };
 
     default:
-      break;
+      return state;
   }
 };

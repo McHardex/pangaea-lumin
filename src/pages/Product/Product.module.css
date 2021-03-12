@@ -3,3 +3,10 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 100px 0;
 }
+
+@media only screen and (max-width: 768px) {
+  .product {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px;
+  }
+}

@@ -6,10 +6,16 @@
 }
 
 .modalWrapper {
-  width: 50%;
+  width: 40%;
   position: fixed;
   right: 0;
   height: 100vh;
   background: #f2f3f0;
   z-index: 9999;
+}
+
+@media only screen and (max-width: 768px) {
+  .modalWrapper {
+    width: 100%;
+  }
 }
