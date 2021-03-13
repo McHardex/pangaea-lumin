@@ -57,6 +57,7 @@ export const calculateCartSubTotal = (cart) => {
     image_url: product.image_url,
     price: product.price,
     quantity: product.quantity,
+    itemRef: null,
   }));
 
   storeCartDataInLocalStorage(cartWithoutRefKey);

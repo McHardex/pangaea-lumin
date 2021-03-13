@@ -75,7 +75,7 @@ const Cart = () => {
 
   useEffect(() => {
     if (cart.length) {
-      if (removedCartIndex !== null && cart[removedCartIndex].itemRef) {
+      if (removedCartIndex !== null && cart[removedCartIndex]) {
         cart[removedCartIndex].itemRef.scrollIntoView({
           behavior: "smooth",
           block: "end",
