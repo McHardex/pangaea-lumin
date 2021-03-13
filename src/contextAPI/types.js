@@ -5,4 +5,5 @@ export const DECREASE_CART_ITEM = "DECREASE_CART_ITEM";
 export const SHOW_CART = "SHOW_CART";
 export const HIDE_CART = "HIDE_CART";
 export const GET_CURRENCIES = "GET_CURRENCIES";
+export const CURRENCY_CHANGE = "CURRENCY_CHANGE";
 export const UPDATE_CART_PRICE = "UPDATE_CART_PRICE";

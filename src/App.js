@@ -37,7 +37,7 @@ const App = () => {
       <Loader
         loading={loadingProducts}
         size={30}
-        loaderMessage="Stay calm! Loading all products."
+        loaderMessage="Keep calm! Loading all products."
       />
     );
 

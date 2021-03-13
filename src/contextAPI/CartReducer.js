@@ -24,12 +24,17 @@ export const CartReducer = (state, action) => {
       return {
         ...state,
         cart: [...updatedCart],
-        cartSubTotal: calculateCartSubTotal(updatedCart),
+        cartSubTotal: calculateCartSubTotal({
+          ...state,
+          cart: [...updatedCart],
+          showCart: true,
+        }),
         showCart: showCart(state.showCart),
         removedCartIndex: null,
       };
     case types.REMOVE_PRODUCT_FROM_CART:
       const filteredCart = removeProductFromCart(state.cart, action.productId);
+      console.log(filteredCart, "ccc");
       const removedCartIndex = findProductIndexInCart(
         state.cart,
         action.productId
@@ -37,23 +42,31 @@ export const CartReducer = (state, action) => {
       return {
         ...state,
         cart: filteredCart,
-        cartSubTotal: calculateCartSubTotal(filteredCart),
         removedCartIndex,
+        cartSubTotal: calculateCartSubTotal({
+          ...state,
+          cart: filteredCart,
+          removedCartIndex,
+        }),
       };
     case types.INCREASE_CART_ITEM:
       state.cart[findProductIndexInCart(state.cart, action.cartId)].quantity++;
       return {
         ...state,
         cart: [...state.cart],
-        cartSubTotal: calculateCartSubTotal([...state.cart]),
+        cartSubTotal: calculateCartSubTotal(state),
       };
     case types.DECREASE_CART_ITEM:
       const cartItems = decrementCartQuantity(state.cart, action.cartId);
       return {
         ...state,
         cart: [...cartItems.cart],
-        cartSubTotal: calculateCartSubTotal(cartItems.cart),
         removedCartIndex: cartItems.removedIndex,
+        cartSubTotal: calculateCartSubTotal({
+          ...state,
+          cart: [...cartItems.cart],
+          removedCartIndex: cartItems.removedIndex,
+        }),
       };
     case types.GET_CURRENCIES:
       const modifiedCurrencyList = action.currencies.map((currency) => ({
@@ -74,7 +87,16 @@ export const CartReducer = (state, action) => {
         ...state,
         cart: [...updatedCartWithPrice],
         updatedProducts: [...action.products],
-        cartSubTotal: calculateCartSubTotal([...updatedCartWithPrice]),
+        cartSubTotal: calculateCartSubTotal(state),
+      };
+    case types.CURRENCY_CHANGE:
+      return {
+        ...state,
+        currency: action.currency,
+        cartSubTotal: calculateCartSubTotal({
+          ...state,
+          currency: action.currency,
+        }),
       };
     case types.SHOW_CART:
       return {
@@ -86,6 +108,11 @@ export const CartReducer = (state, action) => {
         ...state,
         showCart: false,
         removedCartIndex: null,
+        cartSubTotal: calculateCartSubTotal({
+          ...state,
+          showCart: false,
+          removedCartIndex: null,
+        }),
       };
 
     default:

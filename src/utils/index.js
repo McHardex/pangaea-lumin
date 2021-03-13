@@ -50,8 +50,14 @@ export const decrementCartQuantity = (cart, cartId) => {
   return { cart, removedIndex: null };
 };
 
-export const calculateCartSubTotal = (cart) => {
-  const cartWithoutRefKey = cart.map((product) => ({
+const total = (cart) => {
+  return cart
+    .reduce((acc, item) => acc + item.quantity * item.price, 0)
+    .toFixed(2);
+};
+
+export const calculateCartSubTotal = (state) => {
+  const cartWithoutRefKey = state.cart.map((product) => ({
     id: product.id,
     title: product.title,
     image_url: product.image_url,
@@ -59,11 +65,14 @@ export const calculateCartSubTotal = (cart) => {
     quantity: product.quantity,
     itemRef: null,
   }));
+  const dataToStore = {
+    ...state,
+    cart: cartWithoutRefKey,
+    cartSubTotal: total(state.cart),
+  };
 
-  storeCartDataInLocalStorage(cartWithoutRefKey);
-  return cart
-    .reduce((acc, item) => acc + item.quantity * item.price, 0)
-    .toFixed(2);
+  storeCartDataInLocalStorage(dataToStore);
+  return total(state.cart);
 };
 
 export const updateCartItemsPrice = (cart, products) => {

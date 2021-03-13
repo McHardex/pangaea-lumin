@@ -1,30 +1,31 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { createContext, useReducer, useState } from "react";
-import { calculateCartSubTotal } from "utils";
+import React, { createContext, useReducer } from "react";
 import { CartReducer } from "./CartReducer";
+
 import * as types from "./types";
 
 export const CartContext = createContext();
 
-const cartInLocalStorage = localStorage.getItem("cartItems")
-  ? JSON.parse(localStorage.getItem("cartItems"))
-  : [];
-
-const initialState = {
-  cart: cartInLocalStorage,
-  cartSubTotal: cartInLocalStorage.length
-    ? calculateCartSubTotal(cartInLocalStorage)
-    : 0,
+const defaultState = {
+  cart: [],
+  cartSubTotal: 0,
   showCart: false,
   currencies: [],
   updatedProducts: [],
   removedCartIndex: null,
+  currency: "USD",
+};
+
+const cartDataFromLocalStorage = localStorage.getItem("cartItems")
+  ? JSON.parse(localStorage.getItem("cartItems"))
+  : defaultState;
+
+const initialState = {
+  ...cartDataFromLocalStorage,
 };
 
 const CartContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(CartReducer, initialState);
-
-  const [currency, setCurrency] = useState("USD");
 
   const addProductToCart = (product) =>
     dispatch({ type: types.ADD_PRODUCT_TO_CART, product });
@@ -53,7 +54,7 @@ const CartContextProvider = ({ children }) => {
   };
 
   const handleCurrencyChange = (currency) => {
-    setCurrency(currency);
+    dispatch({ type: types.CURRENCY_CHANGE, currency });
   };
 
   const contextHandlers = {
@@ -66,7 +67,6 @@ const CartContextProvider = ({ children }) => {
     addCurrenciesToCartContext,
     updateCartPrice,
     handleCurrencyChange,
-    currency,
     ...state,
   };
 
