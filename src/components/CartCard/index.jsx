@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CartContext } from "components/contextAPI/CartContext";
+import { CartContext } from "contextAPI/CartContext";
 import { X, Minus, Plus } from "react-feather";
 
 import styles from "./CartCard.module.css";
@@ -11,10 +11,12 @@ const CartCard = ({ cart }) => {
     decreaseCartItem,
     currency,
   } = useContext(CartContext);
+
+  const price = (cart.quantity * cart.price).toFixed(2);
   return (
-    <div className={styles.cartCard}>
+    <div className={styles.cartCard} ref={(e) => (cart.itemRef = e)}>
       <div className={styles.titleWrapper}>
-        <span>{cart.title}</span>
+        <span title={cart.title}>{cart.title}</span>
         <div>
           <button onClick={() => decreaseCartItem(cart.id)}>
             <Minus size={10} />
@@ -27,9 +29,7 @@ const CartCard = ({ cart }) => {
       </div>
 
       <div className={styles.price}>
-        {currency === "USD"
-          ? `$${cart.quantity * cart.price}`
-          : `${cart.quantity * cart.price} ${currency}`}
+        {currency === "USD" ? `$${price}` : `${currency} ${price}`}
       </div>
 
       <div className={styles.productImageWrapper}>

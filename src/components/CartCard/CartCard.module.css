@@ -8,6 +8,10 @@
   justify-items: center;
 }
 
+.cartCard::-moz-focus-inner {
+  border: 1px solid red;
+}
+
 .titleWrapper,
 .titleWrapper > div {
   display: flex;
@@ -23,6 +27,14 @@
   align-items: center;
   box-sizing: border-box;
   padding: 5px 0;
+}
+
+.titleWrapper > span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .titleWrapper > div > button {

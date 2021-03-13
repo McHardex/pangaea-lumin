@@ -1,17 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useReducer, useState } from "react";
+import { calculateCartSubTotal } from "utils";
 import { CartReducer } from "./CartReducer";
 import * as types from "./types";
 
 export const CartContext = createContext();
 
+const cartInLocalStorage = localStorage.getItem("cartItems")
+  ? JSON.parse(localStorage.getItem("cartItems"))
+  : [];
+
 const initialState = {
-  cart: [],
-  cartSubTotal: 0,
-  checkout: false,
+  cart: cartInLocalStorage,
+  cartSubTotal: cartInLocalStorage.length
+    ? calculateCartSubTotal(cartInLocalStorage)
+    : 0,
   showCart: false,
   currencies: [],
   updatedProducts: [],
+  removedCartIndex: null,
 };
 
 const CartContextProvider = ({ children }) => {
@@ -30,6 +37,10 @@ const CartContextProvider = ({ children }) => {
 
   const decreaseCartItem = (cartId) =>
     dispatch({ type: types.DECREASE_CART_ITEM, cartId });
+
+  const handleShowCart = () => {
+    dispatch({ type: types.SHOW_CART });
+  };
 
   const hideCart = () => dispatch({ type: types.HIDE_CART });
 
@@ -50,6 +61,7 @@ const CartContextProvider = ({ children }) => {
     removeProductFromCart,
     increaseCartItem,
     decreaseCartItem,
+    handleShowCart,
     hideCart,
     addCurrenciesToCartContext,
     updateCartPrice,

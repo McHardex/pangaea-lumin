@@ -5,11 +5,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider } from "@apollo/client";
 import apolloClient from "./apolloClient";
-import CartContextProvider from "components/contextAPI/CartContext";
+import CartContextProvider from "contextAPI/CartContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.render(
   <ApolloProvider client={apolloClient}>
     <CartContextProvider>
+      <ToastContainer />
       <App />
     </CartContextProvider>
   </ApolloProvider>,
