@@ -1,7 +1,23 @@
-.productContainer > h1 {
+.productHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  padding-right: 20px;
+}
+
+.productHeader > h1 {
+  width: 100%;
   text-align: center;
   font-size: 32px;
-  margin-bottom: 50px;
+}
+
+.productHeader > button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .product {

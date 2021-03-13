@@ -1,5 +1,3 @@
-import { toast } from "react-toastify";
-
 const storeCartDataInLocalStorage = (cart) => {
   localStorage.setItem("cartItems", JSON.stringify(cart));
 };
@@ -19,20 +17,20 @@ export const checkProductExistsInCart = (cartItems, product) => {
 export const addProductToCart = (cartItems, product, updatedProducts) => {
   const productIsInTheCart = checkProductExistsInCart(cartItems, product);
   if (productIsInTheCart) {
-    toast.error("This product is already in your cart! ", {
-      toastId: "duplicate",
-    });
+    const productIndexInCart = findProductIndexInCart(cartItems, product.id);
+    cartItems[productIndexInCart].quantity++;
     return [...cartItems];
-  }
-  if (updatedProducts.length) {
-    const updatedProductsToAdd = updatedProducts.find(
-      (updatedProduct) => updatedProduct.id === product.id
-    );
-    const productToAdd = { ...updatedProductsToAdd, quantity: 1 };
-    return cartItems.concat(productToAdd);
   } else {
-    const productToAdd = { ...product, quantity: 1, itemRef: null };
-    return cartItems.concat(productToAdd);
+    if (updatedProducts.length) {
+      const updatedProductsToAdd = updatedProducts.find(
+        (updatedProduct) => updatedProduct.id === product.id
+      );
+      const productToAdd = { ...updatedProductsToAdd, quantity: 1 };
+      return cartItems.concat(productToAdd);
+    } else {
+      const productToAdd = { ...product, quantity: 1, itemRef: null };
+      return cartItems.concat(productToAdd);
+    }
   }
 };
 

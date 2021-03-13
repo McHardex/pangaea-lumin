@@ -8,11 +8,11 @@ import Modal from "components/Modal";
 import Select from "react-select";
 import Button from "components/Button";
 import Loader from "components/Loader";
+import CartCount from "components/CartCount";
 
 import { CSSTransition } from "react-transition-group";
 
 import { ChevronLeft } from "react-feather";
-import { ShoppingCart } from "react-feather";
 import { ReactComponent as EmptyCart } from "assets/images/undraw_empty_cart.svg";
 
 import styles from "./Cart.module.css";
@@ -114,10 +114,7 @@ const Cart = () => {
               <ChevronLeft />
             </button>
             <h3>Your Cart</h3>
-            <div className={styles.cartCount}>
-              <span>{cart.length}</span>
-              <ShoppingCart size={15} />
-            </div>
+            <CartCount cart={cart} />
           </div>
           {cart.length ? (
             <>
