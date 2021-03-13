@@ -8,6 +8,11 @@ import {
   updateCartItemsPrice,
 } from "utils";
 
+const showCart = (isCartOpen) => {
+  if (isCartOpen) return;
+  return true;
+};
+
 export const CartReducer = (state, action) => {
   switch (action.type) {
     case types.ADD_PRODUCT_TO_CART:
@@ -20,14 +25,20 @@ export const CartReducer = (state, action) => {
         ...state,
         cart: [...updatedCart],
         cartSubTotal: calculateCartSubTotal(updatedCart),
-        showCart: true,
+        showCart: showCart(state.showCart),
+        removedCartIndex: null,
       };
     case types.REMOVE_PRODUCT_FROM_CART:
       const filteredCart = removeProductFromCart(state.cart, action.productId);
+      const removedCartIndex = findProductIndexInCart(
+        state.cart,
+        action.productId
+      );
       return {
         ...state,
         cart: filteredCart,
         cartSubTotal: calculateCartSubTotal(filteredCart),
+        removedCartIndex,
       };
     case types.INCREASE_CART_ITEM:
       state.cart[findProductIndexInCart(state.cart, action.cartId)].quantity++;
@@ -40,7 +51,7 @@ export const CartReducer = (state, action) => {
       const cartItems = decrementCartQuantity(state.cart, action.cartId);
       return {
         ...state,
-        cart: cartItems,
+        cart: [...cartItems],
         cartSubTotal: calculateCartSubTotal(cartItems),
       };
     case types.GET_CURRENCIES:
@@ -62,12 +73,18 @@ export const CartReducer = (state, action) => {
         ...state,
         cart: [...updatedCartWithPrice],
         updatedProducts: [...action.products],
-        cartSubTotal: calculateCartSubTotal(updatedCartWithPrice),
+        cartSubTotal: calculateCartSubTotal([...updatedCartWithPrice]),
+      };
+    case types.SHOW_CART:
+      return {
+        ...state,
+        showCart: true,
       };
     case types.HIDE_CART:
       return {
         ...state,
         showCart: false,
+        removedCartIndex: null,
       };
 
     default:

@@ -3,7 +3,7 @@ import { useEffect, useContext } from "react";
 import GET_PRODUCTS from "graphql/queries/products";
 import GET_CURRENCIES from "graphql/queries/currencies";
 import { useLazyQuery } from "@apollo/client";
-import { CartContext } from "components/contextAPI/CartContext";
+import { CartContext } from "contextAPI/CartContext";
 
 import Product from "pages/Product";
 import Cart from "components/Cart";
@@ -40,7 +40,13 @@ const App = () => {
         loaderMessage="Stay calm! Loading all products."
       />
     );
-  if (productsError) return <h1>Unable to load products</h1>;
+
+  if (productsError)
+    return (
+      <h1 style={{ textAlign: "center" }}>
+        Unable to load products, please refresh!!!
+      </h1>
+    );
 
   return (
     <div className="App">

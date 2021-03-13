@@ -7,7 +7,7 @@ const CartFooter = ({ total, currency }) => {
       <hr />
       <div className={styles.cartTotal}>
         <label>Subtotal</label>
-        <span>{currency === "USD" ? `$${total}` : `${total} ${currency}`}</span>
+        <span>{currency === "USD" ? `$${total}` : `${currency} ${total}`}</span>
       </div>
       <div className={styles.btnMargin}>
         <Button

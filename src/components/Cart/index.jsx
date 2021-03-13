@@ -1,17 +1,22 @@
-import { useContext, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import CartCard from "components/CartCard";
 import CartFooter from "components/CartFooter";
-import { CartContext } from "components/contextAPI/CartContext";
+import { CartContext } from "contextAPI/CartContext";
 import Modal from "components/Modal";
 import Select from "react-select";
-import { ChevronLeft } from "react-feather";
-
 import Button from "components/Button";
 import Loader from "components/Loader";
 
+import { CSSTransition } from "react-transition-group";
+
+import { ChevronLeft } from "react-feather";
+import { ShoppingCart } from "react-feather";
 import { ReactComponent as EmptyCart } from "assets/images/undraw_empty_cart.svg";
+
 import styles from "./Cart.module.css";
+import "./transition.css";
 
 const productQuery = `
     query product($currency: Currency) {
@@ -46,6 +51,8 @@ const Cart = () => {
     updateCartPrice,
     handleCurrencyChange,
     currency,
+    showCart,
+    removedCartIndex,
   } = useContext(CartContext);
 
   const [updatingPrice, setUpdatingPrice] = useState(false);
@@ -66,8 +73,31 @@ const Cart = () => {
     }
   };
 
+  useEffect(() => {
+    if (cart.length) {
+      if (removedCartIndex !== null && cart[removedCartIndex].itemRef) {
+        cart[removedCartIndex].itemRef.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      } else {
+        if (cart[cart.length - 1].itemRef) {
+          cart[cart.length - 1].itemRef.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+          });
+        }
+      }
+    }
+  }, [cart.length]);
+
   return (
-    <div>
+    <CSSTransition
+      in={showCart}
+      timeout={300}
+      classNames="modalTransition"
+      unmountOnExit={true}
+    >
       <Modal>
         {updatingPrice && (
           <Loader
@@ -84,6 +114,10 @@ const Cart = () => {
               <ChevronLeft />
             </button>
             <h3>Your Cart</h3>
+            <div className={styles.cartCount}>
+              <span>{cart.length}</span>
+              <ShoppingCart size={15} />
+            </div>
           </div>
           {cart.length ? (
             <>
@@ -125,7 +159,7 @@ const Cart = () => {
           </div>
         </div>
       </Modal>
-    </div>
+    </CSSTransition>
   );
 };
 

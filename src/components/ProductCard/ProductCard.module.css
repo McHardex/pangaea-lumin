@@ -3,9 +3,9 @@
   width: 55%;
   margin: 0 auto;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-rows: 120px 35px 40px 1fr;
+  gap: 5px;
 }
 
 .productCard > img {
@@ -15,12 +15,13 @@
   object-position: center;
 }
 
-.productCard > .textWrapper {
-  margin: 40px 0 15px 0;
-}
-
-.productCard > .textWrapper > p {
+.productCard > p {
   margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 @media only screen and (max-width: 768px) {
