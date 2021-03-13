@@ -51,8 +51,9 @@ export const CartReducer = (state, action) => {
       const cartItems = decrementCartQuantity(state.cart, action.cartId);
       return {
         ...state,
-        cart: [...cartItems],
-        cartSubTotal: calculateCartSubTotal(cartItems),
+        cart: [...cartItems.cart],
+        cartSubTotal: calculateCartSubTotal(cartItems.cart),
+        removedCartIndex: cartItems.removedIndex,
       };
     case types.GET_CURRENCIES:
       const modifiedCurrencyList = action.currencies.map((currency) => ({

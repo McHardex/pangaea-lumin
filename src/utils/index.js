@@ -44,10 +44,10 @@ export const decrementCartQuantity = (cart, cartId) => {
   const cartItem = cart[cartIndex];
   if (cartItem.quantity === 1) {
     const cartRemainder = removeProductFromCart(cart, cartId);
-    return cartRemainder;
+    return { cart: cartRemainder, removedIndex: cartIndex };
   }
   cart[cartIndex].quantity--;
-  return cart;
+  return { cart, removedIndex: null };
 };
 
 export const calculateCartSubTotal = (cart) => {
