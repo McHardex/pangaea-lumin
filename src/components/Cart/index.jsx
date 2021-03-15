@@ -144,7 +144,7 @@ const Cart = () => {
             </>
           ) : (
             <div className={styles.emptyCart}>
-              <EmptyCart width="100%" height="80%" title="" />
+              <EmptyCart width="70%" height="80%" title="" />
               <Button
                 btnText="VIEW ALL PRODUCTS"
                 handleClick={() => hideCart()}
